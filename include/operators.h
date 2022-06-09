@@ -18,6 +18,7 @@
 #define XOR_SYMBOL '^'
 #define AND_SYMBOL '&'
 #define SHR_SYMBOL '>'
+#define SHRA_SYMBOL '>>'
 #define SHL_SYMBOL '<'
 #define ROR_SYMBOL ';'
 #define ROL_SYMBOL ':'
@@ -27,6 +28,7 @@
 #define ADD_SYMBOL '+'
 #define SUB_SYMBOL '-'
 #define NOT_SYMBOL '~'
+#define POW_SYMBOL '**'
 #define TWOSCOMPLEMENT_SYMBOL '_'
 
 // Operations Control

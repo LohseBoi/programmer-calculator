@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <math.h>
 
 #include "operators.h"
 
@@ -16,9 +17,11 @@ static long long or(long long, long long);
 static long long nor(long long, long long);
 static long long xor(long long, long long);
 static long long shl(long long, long long);
+static long long shra(long long, long long);
 static long long rol(long long, long long);
 static long long modulus(long long, long long);
 static long long not(long long, long long);
+static long long powr(long long, long long);
 static long long twos_complement(long long, long long);
 
 static operation operations[15] = {
@@ -33,9 +36,11 @@ static operation operations[15] = {
     {SHL_SYMBOL, 2, shl},
     {SHR_SYMBOL, 2, shr},
     {ROL_SYMBOL, 2, rol},
+    {SHRA_SYMBOL, 2, shra},
     {ROR_SYMBOL, 2, ror},
     {MOD_SYMBOL, 2, modulus},
     {NOT_SYMBOL, 1, not},
+    {POW_SYMBOL, 1, powr},
     {TWOSCOMPLEMENT_SYMBOL, 1, twos_complement}
 };
 
@@ -105,6 +110,13 @@ long long shr(long long a, long long b) {
     return ((unsigned long long) b >> a);
 }
 
+static long long shra(long long a, long long b) {
+
+    // Shift longer than type length is undefined behaviour
+    return b << a;
+    int s = -((unsigned) a >> 31);
+    return (s^a) >> b ^ s;
+}
 static long long rol(long long a, long long b) {
 
     // prevent shift by 64 bits because a shift longer than type length is undefined behaviour
@@ -127,8 +139,11 @@ static long long modulus(long long a, long long b) {
 }
 
 static long long not(long long a, long long UNUSED(b)) {
-
     return ~a;
+}
+
+static long long powr(long long a, long long b) {
+    return pow(a, b);
 }
 
 static long long twos_complement(long long a, long long UNUSED(b)) {
