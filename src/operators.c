@@ -1,5 +1,4 @@
 #include <stddef.h>
-#include <math.h>
 
 #include "operators.h"
 
@@ -8,6 +7,8 @@ int globalmasksize = DEFAULT_MASK_SIZE;
 
 operation *current_op = NULL;
 
+static long long shra(long long, long long);
+static long long _pow(long long, long long);
 static long long add(long long, long long);
 static long long subtract(long long, long long);
 static long long multiply(long long, long long);
@@ -17,14 +18,13 @@ static long long or(long long, long long);
 static long long nor(long long, long long);
 static long long xor(long long, long long);
 static long long shl(long long, long long);
-static long long shra(long long, long long);
 static long long rol(long long, long long);
 static long long modulus(long long, long long);
 static long long not(long long, long long);
-static long long powr(long long, long long);
 static long long twos_complement(long long, long long);
 
-static operation operations[15] = {
+static operation operations[] = {
+    {POW_SYMBOL, 2, _pow},
     {ADD_SYMBOL, 2, add},
     {SUB_SYMBOL, 2, subtract},
     {MUL_SYMBOL, 2, multiply},
@@ -40,7 +40,6 @@ static operation operations[15] = {
     {ROR_SYMBOL, 2, ror},
     {MOD_SYMBOL, 2, modulus},
     {NOT_SYMBOL, 1, not},
-    {POW_SYMBOL, 1, powr},
     {TWOSCOMPLEMENT_SYMBOL, 1, twos_complement}
 };
 
@@ -53,6 +52,14 @@ operation* getopcode(char c)  {
     return NULL;
 }
 
+static long long _pow(long long a, long long b) {
+    long long result = b;
+    for (a--; a > 0; a--)
+    {
+        result *= b;
+    }
+    return result;
+}
 
 static long long add(long long a, long long b) {
 
@@ -111,11 +118,19 @@ long long shr(long long a, long long b) {
 }
 
 static long long shra(long long a, long long b) {
-
+    unsigned long long size = (unsigned long long)1 << (globalmasksize - 1);
+    unsigned long long result = ((unsigned long long) b >> a);
+    //if ((unsigned long long)b & (unsigned long long)0x8000000000000000) {
+    if ((unsigned long long)b & size) {
+        unsigned long long temp = size;
+        for(;a > 0; a--) {
+            temp >>= 1;
+            temp |= size;
+        }
+        result |= temp;
+    }
+    return result;
     // Shift longer than type length is undefined behaviour
-    return b << a;
-    int s = -((unsigned) a >> 31);
-    return (s^a) >> b ^ s;
 }
 static long long rol(long long a, long long b) {
 
@@ -142,11 +157,7 @@ static long long not(long long a, long long UNUSED(b)) {
     return ~a;
 }
 
-static long long powr(long long a, long long b) {
-    return pow(a, b);
-}
 
 static long long twos_complement(long long a, long long UNUSED(b)) {
-
     return -a;
 }

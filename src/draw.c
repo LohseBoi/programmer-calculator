@@ -56,9 +56,9 @@ void init_gui() {
         box(displaywin, ' ', 0);
         if (symbols_enabled) {
 
-            mvwprintw_colors(displaywin, wMaxY-7, 2, COLOR_PAIR_SYMBOLS, "ADD  +    SUB  -    MUL  *    DIV  /    MOD  %%\n");
-            wprintw_colors(displaywin, COLOR_PAIR_SYMBOLS, "  AND  &    OR   |    NOR  $    XOR  ^    NOT  ~\n");
-            wprintw_colors(displaywin, COLOR_PAIR_SYMBOLS, "  SL   <    SR   >    RL   :    RR   ;    2's  _");
+            mvwprintw_colors(displaywin, wMaxY-7, 2, COLOR_PAIR_SYMBOLS, "ADD  +    SUB  -    MUL  *    DIV  /    MOD  %%\t\t\tLohses godter <3\n");
+            wprintw_colors(displaywin, COLOR_PAIR_SYMBOLS, "  AND  &    OR   |    NOR  $    XOR  ^    NOT  ~\t\t\tArithmetic right shift 'a' (8 a 2 = 2)\n");
+            wprintw_colors(displaywin, COLOR_PAIR_SYMBOLS, "  SL   <    SR   >    RL   :    RR   ;    2's  _\t\t\tPower operator 'e' (2 e 3 = 8)");
         }
         wrefresh(displaywin);
         inputwin = newwin(3, wMaxX, wMaxY-3, 0);

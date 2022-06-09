@@ -166,7 +166,7 @@ static exprtree parse_shift_expr(parser_t parser) {
 
     // Grammar rule: shift_exp := add_exp ((<< | >> | ror | rol) add_exp)*
 
-    char ops[] = {SHR_SYMBOL, SHL_SYMBOL, ROR_SYMBOL, ROL_SYMBOL, '\0'};
+    char ops[] = {SHRA_SYMBOL, SHR_SYMBOL, SHL_SYMBOL, ROR_SYMBOL, ROL_SYMBOL, '\0'};
 
     return parse_stdop_expr(parser, ops, parse_add_expr);
 
@@ -186,7 +186,7 @@ static exprtree parse_mult_expr(parser_t parser) {
 
     // Grammar rule: mult_exp := not_exp ((* | / | %) not_exp)*
 
-    char ops[] = {MUL_SYMBOL, DIV_SYMBOL, MOD_SYMBOL, '\0'};
+    char ops[] = {POW_SYMBOL, MUL_SYMBOL, DIV_SYMBOL, MOD_SYMBOL, '\0'};
 
     return parse_stdop_expr(parser, ops, parse_prefix_expr);
 

@@ -13,28 +13,28 @@
 
 #define ALL_OPS "+-*/&|$^<>:;%~_"
 
-#define OR_SYMBOL '|'
-#define NOR_SYMBOL '$'
-#define XOR_SYMBOL '^'
-#define AND_SYMBOL '&'
-#define SHR_SYMBOL '>'
-#define SHRA_SYMBOL '>>'
-#define SHL_SYMBOL '<'
-#define ROR_SYMBOL ';'
-#define ROL_SYMBOL ':'
-#define MUL_SYMBOL '*'
-#define DIV_SYMBOL '/'
-#define MOD_SYMBOL '%'
-#define ADD_SYMBOL '+'
-#define SUB_SYMBOL '-'
-#define NOT_SYMBOL '~'
-#define POW_SYMBOL '**'
+#define POW_SYMBOL  'e'
+#define OR_SYMBOL   '|'
+#define NOR_SYMBOL  '$'
+#define XOR_SYMBOL  '^'
+#define AND_SYMBOL  '&'
+#define SHRA_SYMBOL 'a'
+#define SHR_SYMBOL  '>'
+#define SHL_SYMBOL  '<'
+#define ROR_SYMBOL  ';'
+#define ROL_SYMBOL  ':'
+#define MUL_SYMBOL  '*'
+#define DIV_SYMBOL  '/'
+#define MOD_SYMBOL  '%'
+#define ADD_SYMBOL  '+'
+#define SUB_SYMBOL  '-'
+#define NOT_SYMBOL  '~'
 #define TWOSCOMPLEMENT_SYMBOL '_'
 
 // Operations Control
 // Example: '+' takes two operands, therefore the noperands = 2
 typedef struct operation {
-    char character;
+    char* character;
     unsigned char noperands;
     long long (*execute) (long long, long long);
 } operation;
